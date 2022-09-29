@@ -1,13 +1,16 @@
-package com.feeltech.model;
+package com.feeltech.appbee.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class ProducaoAnual implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,12 +21,14 @@ public class ProducaoAnual implements Serializable {
 
     private String ano;
 
-    private Double producaoEmLitros;
+    private Double producaoMel;
 
-    private String coloracao;
+    private Double producaoCera;
 
-    private String viscosidade;
+    private Double producaoPollen;
 
+    private Double producaoPropolis;
 
+    private Double producaoGeleiaReal;
 
 }

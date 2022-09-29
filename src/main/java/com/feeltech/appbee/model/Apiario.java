@@ -1,13 +1,16 @@
-package com.feeltech.model;
+package com.feeltech.appbee.model;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Apiario implements Serializable {
     private static final long serialVersionUID = 1L;

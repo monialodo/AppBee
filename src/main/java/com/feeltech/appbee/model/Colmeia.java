@@ -1,12 +1,15 @@
-package com.feeltech.model;
+package com.feeltech.appbee.model;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Colmeia implements Serializable {
     private static final long serialVersionUID = 1L;
