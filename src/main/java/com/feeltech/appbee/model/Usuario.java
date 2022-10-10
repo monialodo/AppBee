@@ -1,16 +1,21 @@
 package com.feeltech.appbee.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.feeltech.appbee.model.enums.Perfil;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "Usuario")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,21 +24,38 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column (name = "nome")
     private String nome;
+
+    @Column (name = "email")
     private String email;
+
+    @JsonIgnore
+    @Column (name = "senha")
     private String senha;
+
+    @Column (name = "cpf")
     private String cpf;
+
+    @Column (name = "telefone")
     private String telefone;
 
 
     @ManyToOne(cascade = CascadeType.MERGE )
-    @JoinColumn(name = "cep")
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    @ManyToMany
-    @JoinTable(name = "usuarios_roles",
-            joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Roles> roles;
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable(name="PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getCod());
+    }
+
+
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
 
 }

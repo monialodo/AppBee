@@ -5,12 +5,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "colmeia")
 public class Colmeia implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -18,14 +20,17 @@ public class Colmeia implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column (name = "nome_colmeia")
     private String nome;
 
+    @Column (name = "especie_colmeia")
     private String especie;
 
+    @Column (name = "florada_colmeia")
     private String florada;
 
-    @OneToOne
-    private ProducaoAnual producaoAnual;
+    @OneToMany(mappedBy = "colmeia")
+    private List<ProducaoAnual> producaoAnual;
 
     @ManyToOne
     @JoinColumn(name = "apiario_id")

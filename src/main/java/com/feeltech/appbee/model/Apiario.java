@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "apiario")
 public class Apiario implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,10 +20,11 @@ public class Apiario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String nome;
 
     @ManyToOne(cascade = CascadeType.MERGE )
-    @JoinColumn(name = "cep")
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @OneToMany(mappedBy = "apiario")
