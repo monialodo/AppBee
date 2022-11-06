@@ -87,6 +87,7 @@ public class ApiarioService implements ApiarioServiceInterface {
         }
         newApiario.setNome(apiario.getNome());
         newApiario.setEndereco(apiario.getEndereco());
+        newApiario.setColmeias(apiario.getColmeias());
 
         apiarioRepository.save(newApiario);
     }

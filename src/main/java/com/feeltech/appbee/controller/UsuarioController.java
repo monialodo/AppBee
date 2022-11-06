@@ -1,5 +1,10 @@
 package com.feeltech.appbee.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import com.feeltech.appbee.dto.CredenciaisDTO;
+import com.feeltech.appbee.dto.UsuarioDto;
 import com.feeltech.appbee.model.Usuario;
 import com.feeltech.appbee.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/usuario")
@@ -17,33 +25,38 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping(value = "/listar-funcionarios")
     public ResponseEntity<List<Usuario>> findAll() {
         return ResponseEntity.ok(usuarioService.findAll());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping ("/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable Long id) {
         Usuario usuario = usuarioService.findById(id);
         return ResponseEntity.ok().body(usuario);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/nome")
-    public ResponseEntity<Usuario> findByNome(@RequestParam String nome) {
+    public ResponseEntity<Usuario> findByNome(@RequestBody String nome) {
         return ResponseEntity.ok(usuarioService.findByNome(nome));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/email")
-    public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
+    public ResponseEntity<Usuario> findByEmail(@RequestBody String email) {
         return ResponseEntity.ok(usuarioService.findByEmail(email));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/perfis")
-    public ResponseEntity<Usuario> findByRoles(@RequestParam String perfis) {
+    public ResponseEntity<Usuario> findByRoles(@RequestBody String perfis) {
         return ResponseEntity.ok(usuarioService.findByPerfis(perfis));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/page")
     public ResponseEntity<Page<Usuario>> findAllPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -54,17 +67,20 @@ public class UsuarioController {
         return ResponseEntity.ok().body(list);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping("/create")
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
+
+
+    @PostMapping("/create-user")
+    public ResponseEntity<Void> save(@Valid @RequestBody Usuario usuario) throws Exception {
         usuarioService.save(usuario);
-        return ResponseEntity.ok(usuario);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(usuario.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PostMapping("/create-password")
-    public ResponseEntity<Usuario> createPassword(@RequestBody Usuario usuario) {
-        usuarioService.createPassword(usuario);
-        return ResponseEntity.ok(usuario);
+    public ResponseEntity<UsuarioDto> createPassword(@RequestBody CredenciaisDTO credenciaisDTO) throws Exception {
+        usuarioService.createPassword(credenciaisDTO);
+        return ResponseEntity.ok(usuarioService.createPassword(credenciaisDTO));
     }
 
     @PostMapping("/login")
@@ -73,7 +89,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/forgot")
-    public ResponseEntity<Usuario> forgot(@RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDto> forgot(@RequestBody Usuario usuario) throws Exception {
         return ResponseEntity.ok(usuarioService.forgot(usuario));
     }
 
@@ -83,15 +99,11 @@ public class UsuarioController {
         usuarioService.update(id, usuario);
         return ResponseEntity.ok(usuario);
     }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         usuarioService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
-
 }

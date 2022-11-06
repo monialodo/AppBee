@@ -1,6 +1,8 @@
 package com.feeltech.appbee.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,20 +22,21 @@ public class Colmeia implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column (name = "nome_colmeia")
+    @Column(name = "nome_colmeia")
     private String nome;
 
-    @Column (name = "especie_colmeia")
+    @Column(name = "especie_colmeia")
     private String especie;
 
-    @Column (name = "florada_colmeia")
+    @Column(name = "florada_colmeia")
     private String florada;
 
     @OneToMany(mappedBy = "colmeia")
     private List<ProducaoAnual> producaoAnual;
 
-    @ManyToOne
-    @JoinColumn(name = "apiario_id")
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     private Apiario apiario;
+
 
 }

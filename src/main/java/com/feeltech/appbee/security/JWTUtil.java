@@ -18,6 +18,9 @@ public class JWTUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    @Value("${jwt.signUpExpiration}")
+    private Long signUpExpiration;
+
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
@@ -25,6 +28,7 @@ public class JWTUtil {
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
                 .compact();
     }
+
 
     private Claims getClaims(String token) {
         try {
@@ -43,8 +47,11 @@ public class JWTUtil {
     }
 
     public boolean tokenValido(String token) {
+
+        System.out.println(token);
         Claims claims = getClaims(token);
         if (claims != null) {
+            System.out.println(claims);
             String username = claims.getSubject();
             Date expirationDate = claims.getExpiration();
             Date now = new Date(System.currentTimeMillis());
@@ -56,7 +63,23 @@ public class JWTUtil {
     }
 
 
+    public String signUpToken (String email, String role) {
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("role", role)
+                .setExpiration(new Date(System.currentTimeMillis() + signUpExpiration))
+                .signWith(SignatureAlgorithm.HS256, secret.getBytes())
+                .compact();
+    }
 
+    public String userToken (String username, String roles) {
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("role", roles)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS512, secret.getBytes())
+                .compact();
+    }
 
 
 }

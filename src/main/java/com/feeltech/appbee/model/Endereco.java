@@ -40,4 +40,13 @@ public class Endereco implements Serializable {
     @Column (name = "uf")
     private String uf;
 
+    public Endereco(Long endereco_id) {
+        this.id = endereco_id;
+    }
+
+
+    public Endereco(Long id, String cep) {
+        this.id = id;
+        this.cep = cep;
+    }
 }

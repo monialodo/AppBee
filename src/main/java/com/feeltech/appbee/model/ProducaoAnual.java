@@ -1,5 +1,6 @@
 package com.feeltech.appbee.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class ProducaoAnual implements Serializable {
     @Column (name = "producao_geleia_real")
     private Double producaoGeleiaReal;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "colmeia_id")
     private Colmeia colmeia;

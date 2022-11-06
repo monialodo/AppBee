@@ -30,7 +30,6 @@ public class Usuario implements Serializable {
     @Column (name = "email")
     private String email;
 
-    @JsonIgnore
     @Column (name = "senha")
     private String senha;
 
@@ -40,6 +39,8 @@ public class Usuario implements Serializable {
     @Column (name = "telefone")
     private String telefone;
 
+    @Column (name = "cargo")
+    private String cargo;
 
     @ManyToOne(cascade = CascadeType.MERGE )
     @JoinColumn(name = "id_endereco")
@@ -49,13 +50,12 @@ public class Usuario implements Serializable {
     @CollectionTable(name="PERFIS")
     private Set<Integer> perfis = new HashSet<>();
 
-    public void addPerfil(Perfil perfil) {
-        perfis.add(perfil.getCod());
-    }
-
-
     public Set<Perfil> getPerfis() {
         return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getCod());
     }
 
 }

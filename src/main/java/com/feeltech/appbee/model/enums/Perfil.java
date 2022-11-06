@@ -3,7 +3,7 @@ package com.feeltech.appbee.model.enums;
 public enum Perfil {
 
     ADMIN(1, "ROLE_ADMIN"),
-    CLIENTE(2, "ROLE_USER");
+    USER(2, "ROLE_USER");
 
     private int cod;
     private String descricao;

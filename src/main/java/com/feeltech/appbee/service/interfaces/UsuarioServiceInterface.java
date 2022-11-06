@@ -1,5 +1,7 @@
 package com.feeltech.appbee.service.interfaces;
 
+import com.feeltech.appbee.dto.CredenciaisDTO;
+import com.feeltech.appbee.dto.UsuarioDto;
 import com.feeltech.appbee.model.Usuario;
 import org.springframework.data.domain.Page;
 
@@ -11,9 +13,7 @@ public interface UsuarioServiceInterface {
 
     Usuario findById(Long id);
 
-    void save(Usuario usuario);
-
-    void createPassword(Usuario usuario);
+    void save(Usuario usuario) throws Exception;
 
     void deleteById(Long id);
 
@@ -25,10 +25,11 @@ public interface UsuarioServiceInterface {
 
     Usuario findByPerfis(String perfis);
 
+    UsuarioDto createPassword(CredenciaisDTO credenciaisDTO) throws Exception;
 
     Usuario login(Usuario usuario);
 
-    Usuario forgot(Usuario usuario);
+    UsuarioDto forgot(Usuario usuario) throws Exception;
 
     Page<Usuario> findAllPage(Integer page, Integer size, String orderBy, String direction);
 }

@@ -29,8 +29,8 @@ public class ProducaoAnualController {
         return ResponseEntity.ok().body(producaoAnual);
     }
 
-    @GetMapping("/ano")
-    public ResponseEntity<ProducaoAnual> findByAno(@RequestParam String ano) {
+    @GetMapping("/ano/{ano}")
+    public ResponseEntity<ProducaoAnual> findByAno(@PathVariable String ano) {
         return ResponseEntity.ok(producaoAnualService.findByAno(ano));
     }
 

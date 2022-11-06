@@ -19,9 +19,9 @@ import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    private JWTUtil jwtUtil;
+    private final JWTUtil jwtUtil;
 
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
@@ -77,6 +77,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String username = ((UserSecurity) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
+        System.out.println("token: " + token);
         res.addHeader("Authorization", "Bearer " + token);
     }
 

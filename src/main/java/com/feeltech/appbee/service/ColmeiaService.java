@@ -33,6 +33,7 @@ public class ColmeiaService implements ColmeiaServiceInterface {
 
     @Override
     public void save(Colmeia colmeia) {
+
         Colmeia newColmeia = colmeiaRepository.findByNome(colmeia.getNome());
         if (newColmeia == null) {
             newColmeia = new Colmeia();
@@ -40,6 +41,7 @@ public class ColmeiaService implements ColmeiaServiceInterface {
         newColmeia.setNome(colmeia.getNome());
         newColmeia.setEspecie(colmeia.getEspecie());
         newColmeia.setFlorada(colmeia.getFlorada());
+        newColmeia.setApiario(colmeia.getApiario());
 
         colmeiaRepository.save(newColmeia);
     }

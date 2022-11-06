@@ -1,10 +1,12 @@
 package com.feeltech.appbee.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,7 +29,6 @@ public class Apiario implements Serializable {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "apiario")
-    private List<Colmeia> colmeias;
-
+    @OneToMany(mappedBy = "apiario", cascade = CascadeType.ALL)
+    private List<Colmeia> colmeias = new ArrayList<>();
 }

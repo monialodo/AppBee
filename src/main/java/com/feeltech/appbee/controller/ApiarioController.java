@@ -29,17 +29,17 @@ public class ApiarioController {
     }
 
     @GetMapping("/nome")
-    public ResponseEntity<Apiario> findByNome(@RequestParam String nome) {
+    public ResponseEntity<Apiario> findByNome(@RequestBody String nome) {
         return ResponseEntity.ok(apiarioService.findByNome(nome));
     }
 
     @GetMapping("/endereco")
-    public ResponseEntity<List<Apiario>> findByEndereco(@RequestParam String endereco) {
+    public ResponseEntity<List<Apiario>> findByEndereco(@RequestBody String endereco) {
         return ResponseEntity.ok(apiarioService.findByEndereco(endereco));
     }
 
     @GetMapping("/colmeia")
-    public ResponseEntity<List<Apiario>> findByColmeias(@RequestParam String colmeia) {
+    public ResponseEntity<List<Apiario>> findByColmeias(@RequestBody String colmeia) {
         return ResponseEntity.ok(apiarioService.findByColmeias(colmeia));
     }
 
