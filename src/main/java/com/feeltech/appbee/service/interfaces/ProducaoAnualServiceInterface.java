@@ -1,5 +1,6 @@
 package com.feeltech.appbee.service.interfaces;
 
+import com.feeltech.appbee.dto.ProducaoAnualDTO;
 import com.feeltech.appbee.model.Colmeia;
 import com.feeltech.appbee.model.ProducaoAnual;
 import org.springframework.data.domain.Page;
@@ -20,17 +21,17 @@ public interface ProducaoAnualServiceInterface {
 
     ProducaoAnual findByColmeia(Colmeia colmeia);
 
-    ProducaoAnual findByProducaoMel(Double producaoMel);
+    Double findByProducaoMel(String ano);
 
-    ProducaoAnual findByProducaoCera(Double producaoCera);
+    Double findByProducaoCera(String ano);
 
-    ProducaoAnual findByProducaoPollen(Double producaoPollen);
+    Double findByProducaoPollen(String ano);
 
-    ProducaoAnual findByProducaoPropolis(Double producaoPropolis);
+    Double findByProducaoPropolis(String ano);
 
-    ProducaoAnual findByProducaoGeleiaReal(Double producaoGeleiaReal);
+    Double findByProducaoGeleiaReal(String ano);
 
-    ProducaoAnual findByAno(String ano);
+    ProducaoAnualDTO findByAno(String ano);
 
 
     Page<ProducaoAnual> findAllPage(Integer page, Integer size, String orderBy, String direction);

@@ -1,5 +1,6 @@
 package com.feeltech.appbee.controller;
 
+import com.feeltech.appbee.dto.ProducaoAnualDTO;
 import com.feeltech.appbee.model.ProducaoAnual;
 import com.feeltech.appbee.service.ProducaoAnualService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,33 +31,33 @@ public class ProducaoAnualController {
     }
 
     @GetMapping("/ano/{ano}")
-    public ResponseEntity<ProducaoAnual> findByAno(@PathVariable String ano) {
+    public ResponseEntity<ProducaoAnualDTO> findByAno(@PathVariable String ano) {
         return ResponseEntity.ok(producaoAnualService.findByAno(ano));
     }
 
-    @GetMapping("/mel")
-    public ResponseEntity<ProducaoAnual> findByProducaoMel(@RequestParam Double producaoMel) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoMel(producaoMel));
+    @GetMapping("/mel/{ano}")
+    public ResponseEntity<Double> findByProducaoMel(@PathVariable String ano) {
+        return ResponseEntity.ok(producaoAnualService.findByProducaoMel(ano));
     }
 
-    @GetMapping("/polen")
-    public ResponseEntity<ProducaoAnual> findByProducaoPolen(@RequestParam Double producaoPolen) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoPollen(producaoPolen));
+    @GetMapping("/polen/{ano}")
+    public ResponseEntity<Double> findByProducaoPolen(@PathVariable String ano) {
+        return ResponseEntity.ok(producaoAnualService.findByProducaoPollen(ano));
     }
 
-    @GetMapping("/cera")
-    public ResponseEntity<ProducaoAnual> findByProducaoCera(@RequestParam Double producaoCera) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoCera(producaoCera));
+    @GetMapping("/cera/{ano}")
+    public ResponseEntity<Double> findByProducaoCera(@PathVariable String ano) {
+        return ResponseEntity.ok(producaoAnualService.findByProducaoCera(ano));
     }
 
-    @GetMapping("/propolis")
-    public ResponseEntity<ProducaoAnual> findByProducaoPropolis(@RequestParam Double producaoPropolis) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoPropolis(producaoPropolis));
+    @GetMapping("/propolis/{ano}")
+    public ResponseEntity<Double> findByProducaoPropolis(@PathVariable String ano) {
+        return ResponseEntity.ok(producaoAnualService.findByProducaoPropolis(ano));
     }
 
-    @GetMapping("/geleia")
-    public ResponseEntity<ProducaoAnual> findByProducaoGeleiaReal(@RequestParam Double producaoGeleiaReal) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoGeleiaReal(producaoGeleiaReal));
+    @GetMapping("/geleia/{ano}")
+    public ResponseEntity<Double> findByProducaoGeleiaReal(@PathVariable String ano) {
+        return ResponseEntity.ok(producaoAnualService.findByProducaoGeleiaReal(ano));
     }
 
     @GetMapping("/page")

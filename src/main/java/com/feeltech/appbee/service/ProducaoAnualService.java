@@ -1,5 +1,6 @@
 package com.feeltech.appbee.service;
 
+import com.feeltech.appbee.dto.ProducaoAnualDTO;
 import com.feeltech.appbee.model.Colmeia;
 import com.feeltech.appbee.model.ProducaoAnual;
 import com.feeltech.appbee.repository.ProducaoAnualRepository;
@@ -65,57 +66,72 @@ public class ProducaoAnualService implements ProducaoAnualServiceInterface {
     }
 
     @Override
-    public ProducaoAnual findByProducaoMel(Double producaoMel) {
-        ProducaoAnual producaoAnualMel = producaoAnualRepository.findByProducaoMel(producaoMel);
-        if (producaoAnualMel == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + producaoMel + ", Tipo: " + ProducaoAnual.class.getName());
+    public Double findByProducaoMel(String ano) {
+        Double totalProduzido = producaoAnualRepository.findByProducaoMel(ano);
+        System.out.println("Producao anual mel: " + totalProduzido);
+
+        if (totalProduzido == null) {
+            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
         }
-        return producaoAnualMel;
+        return totalProduzido;
     }
 
     @Override
-    public ProducaoAnual findByProducaoCera(Double producaoCera) {
-        ProducaoAnual producaoAnualCera = producaoAnualRepository.findByProducaoCera(producaoCera);
+    public Double findByProducaoCera(String ano) {
+        Double producaoAnualCera = producaoAnualRepository.findByProducaoCera(ano);
         if (producaoAnualCera == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + producaoCera + ", Tipo: " + ProducaoAnual.class.getName());
+            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
         }
         return producaoAnualCera;
     }
 
     @Override
-    public ProducaoAnual findByProducaoPollen(Double producaoPollen) {
-        ProducaoAnual producaoAnualPollen = producaoAnualRepository.findByProducaoPollen(producaoPollen);
+    public Double findByProducaoPollen(String ano) {
+        Double producaoAnualPollen = producaoAnualRepository.findByProducaoPollen(ano);
         if (producaoAnualPollen == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + producaoPollen + ", Tipo: " + ProducaoAnual.class.getName());
+            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
         }
         return producaoAnualPollen;
     }
 
     @Override
-    public ProducaoAnual findByProducaoPropolis(Double producaoPropolis) {
-        ProducaoAnual producaoAnualPropolis = producaoAnualRepository.findByProducaoPropolis(producaoPropolis);
+    public Double findByProducaoPropolis(String ano) {
+        Double producaoAnualPropolis = producaoAnualRepository.findByProducaoPropolis(ano);
         if (producaoAnualPropolis == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + producaoPropolis + ", Tipo: " + ProducaoAnual.class.getName());
+            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
         }
         return producaoAnualPropolis;
     }
 
     @Override
-    public ProducaoAnual findByProducaoGeleiaReal(Double producaoGeleiaReal) {
-        ProducaoAnual producaoAnualGeleiaReal = producaoAnualRepository.findByProducaoGeleiaReal(producaoGeleiaReal);
+    public Double findByProducaoGeleiaReal(String ano) {
+        Double producaoAnualGeleiaReal = producaoAnualRepository.findByProducaoGeleiaReal(ano);
         if (producaoAnualGeleiaReal == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + producaoGeleiaReal + ", Tipo: " + ProducaoAnual.class.getName());
+            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
         }
         return producaoAnualGeleiaReal;
     }
 
     @Override
-    public ProducaoAnual findByAno(String ano) {
-        ProducaoAnual producaoAnualAno = producaoAnualRepository.findByAno(ano);
+    public ProducaoAnualDTO findByAno(String ano) {
+        ProducaoAnualDTO producaoAnualAno = producaoAnualRepository.findByAno(ano);
         if (producaoAnualAno == null) {
             throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
         }
         return producaoAnualAno;
+
+
+
+//        EntityManager em = producaoAnualRepository.findByAno(ano);
+//        final Query sumQuery = em.createQuery("SELECT SUM(p.producaoMel) FROM ProducaoAnual p where p.ano = :ano");
+//
+//        sumQuery.setParameter("ano", ano);
+//        final List result = sumQuery.getResultList();
+//        System.out.println("Resultado: " + result);
+//
+//        return result;
+
+
     }
 
     @Override
