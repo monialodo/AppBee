@@ -1,6 +1,5 @@
 package com.feeltech.appbee.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.feeltech.appbee.dto.CredenciaisDTO;
@@ -9,12 +8,11 @@ import com.feeltech.appbee.model.Usuario;
 import com.feeltech.appbee.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 
@@ -70,11 +68,9 @@ public class UsuarioController {
 
 
     @PostMapping("/create-user")
-    public ResponseEntity<Void> save(@Valid @RequestBody Usuario usuario) throws Exception {
+    public ResponseEntity<HttpStatus> save(@Valid @RequestBody Usuario usuario) throws Exception {
         usuarioService.save(usuario);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(usuario.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.ok().body(HttpStatus.CREATED);
     }
 
     @PostMapping("/create-password")

@@ -2,7 +2,7 @@ package com.feeltech.appbee.service;
 
 import com.feeltech.appbee.model.Colmeia;
 import com.feeltech.appbee.repository.ColmeiaRepository;
-import com.feeltech.appbee.service.exception.NotFoundException;
+import com.feeltech.appbee.exceptionHander.NotFoundException;
 import com.feeltech.appbee.service.interfaces.ColmeiaServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

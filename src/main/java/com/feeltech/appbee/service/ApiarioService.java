@@ -3,7 +3,7 @@ package com.feeltech.appbee.service;
 import com.feeltech.appbee.model.Apiario;
 import com.feeltech.appbee.model.Endereco;
 import com.feeltech.appbee.repository.EnderecoRepository;
-import com.feeltech.appbee.service.exception.NotFoundException;
+import com.feeltech.appbee.exceptionHander.NotFoundException;
 import com.feeltech.appbee.service.interfaces.ApiarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -74,7 +74,8 @@ public class ApiarioService implements ApiarioServiceInterface {
     public void save(Apiario apiario) {
 
         String cep = apiario.getEndereco().getCep();
-        Endereco endereco = enderecoRepository.findByCep(cep).orElseGet(() -> {
+        String numero = apiario.getEndereco().getNumero();
+        Endereco endereco = enderecoRepository.findByCepAndNumero(cep, numero).orElseGet(() -> {
             Endereco novoEndereco = viaCepService.findByCep(cep);
             enderecoRepository.save(novoEndereco);
             return novoEndereco;
@@ -109,7 +110,8 @@ public class ApiarioService implements ApiarioServiceInterface {
             novoApiario.get().setNome(apiario.getNome());
             novoApiario.get().setEndereco(apiario.getEndereco());
             String cep = novoApiario.get().getEndereco().getCep();
-            Endereco endereco = enderecoRepository.findByCep(cep).orElseGet(() -> {
+            String numero = novoApiario.get().getEndereco().getNumero();
+            Endereco endereco = enderecoRepository.findByCepAndNumero(cep, numero).orElseGet(() -> {
                 Endereco novoEndereco = viaCepService.findByCep(cep);
                 enderecoRepository.save(novoEndereco);
                 return novoEndereco;

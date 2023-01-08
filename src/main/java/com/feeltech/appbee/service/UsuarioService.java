@@ -1,5 +1,6 @@
 package com.feeltech.appbee.service;
 
+import com.feeltech.appbee.exceptionHander.DataIntegrityException;
 import com.feeltech.appbee.dto.CredenciaisDTO;
 import com.feeltech.appbee.dto.UsuarioDto;
 import com.feeltech.appbee.model.Endereco;
@@ -8,7 +9,7 @@ import com.feeltech.appbee.model.enums.Perfil;
 import com.feeltech.appbee.repository.EnderecoRepository;
 import com.feeltech.appbee.repository.UsuarioRepository;
 import com.feeltech.appbee.security.JWTUtil;
-import com.feeltech.appbee.service.exception.NotFoundException;
+import com.feeltech.appbee.exceptionHander.NotFoundException;
 import com.feeltech.appbee.service.interfaces.UsuarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,15 +59,24 @@ public class UsuarioService implements UsuarioServiceInterface {
     @Override
     public void save(Usuario usuario) throws Exception {
         String cep = usuario.getEndereco().getCep();
-        Endereco endereco = enderecoRepository.findByCep(cep).orElseGet(() -> {
+        String numero = usuario.getEndereco().getNumero();
+
+        if (cep != null && numero != null) {
+            Endereco endereco = enderecoRepository.findByCepAndNumero(cep, numero).orElseGet(() -> {
             Endereco novoEndereco = viaCepService.findByCep(cep);
+            novoEndereco.setNumero(numero);
             enderecoRepository.save(novoEndereco);
             return novoEndereco;
         });
         usuario.setEndereco(endereco);
+        } else {
+            throw new DataIntegrityException("CEP ou número não informado!");
+        }
 
         Usuario newUsuario = usuarioRepository.findByEmail(usuario.getEmail());
-        if (newUsuario == null) {
+        if (newUsuario != null) {
+            throw new DataIntegrityException("Email já cadastrado!");
+        } else {
             newUsuario = new Usuario();
         }
         newUsuario.setNome(usuario.getNome());

@@ -4,7 +4,7 @@ import com.feeltech.appbee.dto.ProducaoAnualDTO;
 import com.feeltech.appbee.model.Colmeia;
 import com.feeltech.appbee.model.ProducaoAnual;
 import com.feeltech.appbee.repository.ProducaoAnualRepository;
-import com.feeltech.appbee.service.exception.NotFoundException;
+import com.feeltech.appbee.exceptionHander.NotFoundException;
 import com.feeltech.appbee.service.interfaces.ProducaoAnualServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -4,6 +4,7 @@ package com.feeltech.appbee.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -19,12 +20,14 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column (name = "cep")
     private String cep;
 
     @Column (name = "logradouro")
     private String logradouro;
 
+    @NotNull
     @Column (name = "numero")
     private String numero;
 
@@ -45,8 +48,9 @@ public class Endereco implements Serializable {
     }
 
 
-    public Endereco(Long id, String cep) {
+    public Endereco(Long id, String cep, String numero) {
         this.id = id;
         this.cep = cep;
+        this.numero = numero;
     }
 }
