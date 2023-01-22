@@ -53,4 +53,6 @@ public class Endereco implements Serializable {
         this.cep = cep;
         this.numero = numero;
     }
+
+
 }

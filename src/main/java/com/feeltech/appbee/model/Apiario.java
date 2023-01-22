@@ -25,10 +25,22 @@ public class Apiario implements Serializable {
     @Column
     private String nome;
 
+    @Column
+    private String cnpj;
+
+
     @ManyToOne(cascade = CascadeType.MERGE )
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
+
     @OneToMany(mappedBy = "apiario", cascade = CascadeType.ALL)
     private List<Colmeia> colmeias = new ArrayList<>();
+
+    public Apiario(Long id, String nome, String cnpj, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.endereco = endereco;
+   }
 }

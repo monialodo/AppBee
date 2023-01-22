@@ -85,14 +85,6 @@ public class ProducaoAnualService implements ProducaoAnualServiceInterface {
         return producaoAnualCera;
     }
 
-    @Override
-    public Double findByProducaoPollen(String ano) {
-        Double producaoAnualPollen = producaoAnualRepository.findByProducaoPollen(ano);
-        if (producaoAnualPollen == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
-        }
-        return producaoAnualPollen;
-    }
 
     @Override
     public Double findByProducaoPropolis(String ano) {
@@ -103,14 +95,6 @@ public class ProducaoAnualService implements ProducaoAnualServiceInterface {
         return producaoAnualPropolis;
     }
 
-    @Override
-    public Double findByProducaoGeleiaReal(String ano) {
-        Double producaoAnualGeleiaReal = producaoAnualRepository.findByProducaoGeleiaReal(ano);
-        if (producaoAnualGeleiaReal == null) {
-            throw new NotFoundException("Produção anual não encontrada! Id: " + ano + ", Tipo: " + ProducaoAnual.class.getName());
-        }
-        return producaoAnualGeleiaReal;
-    }
 
     @Override
     public ProducaoAnualDTO findByAno(String ano) {

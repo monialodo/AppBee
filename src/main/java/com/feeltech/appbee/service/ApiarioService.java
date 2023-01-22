@@ -1,5 +1,6 @@
 package com.feeltech.appbee.service;
 
+import com.feeltech.appbee.dto.ApiarioListaDto;
 import com.feeltech.appbee.model.Apiario;
 import com.feeltech.appbee.model.Endereco;
 import com.feeltech.appbee.repository.EnderecoRepository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.feeltech.appbee.repository.ApiarioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,34 @@ public class ApiarioService implements ApiarioServiceInterface {
     public List<Apiario> findAll() {
         return apiarioRepository.findAll();
     }
+
+    @Override
+    public List<ApiarioListaDto> findAllApiarios() {
+        List<Apiario> apiarios = apiarioRepository.findAll();
+
+        List<ApiarioListaDto> apiariosListaDto = new ArrayList<>();
+
+        System.out.println(apiarios.size());
+
+        for (Apiario apiario : apiarios) {
+
+            for (int i = 0; i < apiario.getColmeias().size(); i++) {
+                ApiarioListaDto apiarioDto = new ApiarioListaDto(
+                        apiario.getNome(),
+
+                        apiario.getColmeias().get(i).getNome(),
+                        apiario.getColmeias().get(i).getEspecie(),
+                        apiario.getColmeias().get(i).getFlorada(),
+                        apiario.getEndereco().getUf()
+                );
+
+            apiariosListaDto.add(apiarioDto);
+            }
+
+        }
+        return apiariosListaDto;
+    }
+
 
     @Override
     public Apiario findById(Long id) {
@@ -83,7 +113,7 @@ public class ApiarioService implements ApiarioServiceInterface {
         apiario.setEndereco(endereco);
 
         Apiario newApiario = apiarioRepository.findByNome(apiario.getNome());
-        if(newApiario == null) {
+        if (newApiario == null) {
             newApiario = new Apiario();
         }
         newApiario.setNome(apiario.getNome());
@@ -120,7 +150,6 @@ public class ApiarioService implements ApiarioServiceInterface {
             apiarioRepository.save(novoApiario.get());
         }
     }
-
 
 
 }

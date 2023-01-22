@@ -40,10 +40,6 @@ public class ProducaoAnualController {
         return ResponseEntity.ok(producaoAnualService.findByProducaoMel(ano));
     }
 
-    @GetMapping("/polen/{ano}")
-    public ResponseEntity<Double> findByProducaoPolen(@PathVariable String ano) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoPollen(ano));
-    }
 
     @GetMapping("/cera/{ano}")
     public ResponseEntity<Double> findByProducaoCera(@PathVariable String ano) {
@@ -55,10 +51,6 @@ public class ProducaoAnualController {
         return ResponseEntity.ok(producaoAnualService.findByProducaoPropolis(ano));
     }
 
-    @GetMapping("/geleia/{ano}")
-    public ResponseEntity<Double> findByProducaoGeleiaReal(@PathVariable String ano) {
-        return ResponseEntity.ok(producaoAnualService.findByProducaoGeleiaReal(ano));
-    }
 
     @GetMapping("/page")
     public ResponseEntity<Page<ProducaoAnual>> findPage(

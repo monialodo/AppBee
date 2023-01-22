@@ -1,5 +1,6 @@
 package com.feeltech.appbee.controller;
 
+import com.feeltech.appbee.dto.ApiarioListaDto;
 import com.feeltech.appbee.model.Apiario;
 import com.feeltech.appbee.service.ApiarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class ApiarioController {
     @GetMapping
     public ResponseEntity<List<Apiario>> findAll() {
         return ResponseEntity.ok(apiarioService.findAll());
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<ApiarioListaDto>> findAllApiarios() {
+        return ResponseEntity.ok(apiarioService.findAllApiarios());
     }
 
     @GetMapping ("/{id}")

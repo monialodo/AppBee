@@ -1,5 +1,6 @@
 package com.feeltech.appbee.service.interfaces;
 
+import com.feeltech.appbee.dto.ApiarioListaDto;
 import com.feeltech.appbee.model.Apiario;
 import org.springframework.data.domain.Page;
 
@@ -8,6 +9,8 @@ import java.util.List;
 public interface ApiarioServiceInterface {
 
     List<Apiario> findAll();
+
+    List<ApiarioListaDto> findAllApiarios();
 
     Apiario findById(Long id);
 

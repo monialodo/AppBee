@@ -28,14 +28,9 @@ public class ProducaoAnual implements Serializable {
     @Column (name = "producao_cera")
     private Double producaoCera;
 
-    @Column (name = "producao_polen")
-    private Double producaoPollen;
-
     @Column (name = "producao_propolis")
     private Double producaoPropolis;
 
-    @Column (name = "producao_geleia_real")
-    private Double producaoGeleiaReal;
 
     @JsonBackReference
     @ManyToOne

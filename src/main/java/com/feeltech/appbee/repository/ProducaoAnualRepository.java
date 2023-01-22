@@ -18,19 +18,13 @@ public interface ProducaoAnualRepository extends JpaRepository<ProducaoAnual, Lo
     @Query("SELECT SUM(p.producaoCera) FROM ProducaoAnual p where p.ano = :ano")
     Double findByProducaoCera(String ano);
 
-    @Query("SELECT SUM(p.producaoPollen) FROM ProducaoAnual p where p.ano = :ano")
-    Double findByProducaoPollen(String ano);
-
-    @Query("SELECT SUM(p.producaoGeleiaReal) FROM ProducaoAnual p where p.ano = :ano")
-    Double findByProducaoGeleiaReal(String ano);
-
     @Query("SELECT SUM(p.producaoPropolis) FROM ProducaoAnual p where p.ano = :ano")
     Double findByProducaoPropolis(String ano);
 
 //    @Query("SELECT SUM(p.producaoMel), SUM(p.producaoCera), SUM(p.producaoPollen), SUM(p.producaoGeleiaReal), SUM(p.producaoPropolis) FROM ProducaoAnual p where p.ano = :ano")
 //    EntityManager findByAno(String ano);
 
-    @Query("SELECT new com.feeltech.appbee.dto.ProducaoAnualDTO(SUM(p.producaoMel), SUM(p.producaoCera), SUM(p.producaoPollen), SUM(p.producaoGeleiaReal), SUM(p.producaoPropolis)) FROM ProducaoAnual p where p.ano = :ano")
+    @Query("SELECT new com.feeltech.appbee.dto.ProducaoAnualDTO(SUM(p.producaoMel), SUM(p.producaoCera), SUM(p.producaoPropolis)) FROM ProducaoAnual p where p.ano = :ano")
     ProducaoAnualDTO findByAno(String ano);
 
 

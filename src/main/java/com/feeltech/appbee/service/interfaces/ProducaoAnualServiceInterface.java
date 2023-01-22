@@ -25,11 +25,7 @@ public interface ProducaoAnualServiceInterface {
 
     Double findByProducaoCera(String ano);
 
-    Double findByProducaoPollen(String ano);
-
     Double findByProducaoPropolis(String ano);
-
-    Double findByProducaoGeleiaReal(String ano);
 
     ProducaoAnualDTO findByAno(String ano);
 
