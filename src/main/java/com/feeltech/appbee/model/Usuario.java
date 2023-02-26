@@ -58,4 +58,5 @@ public class Usuario implements Serializable {
         perfis.add(perfil.getCod());
     }
 
+
 }

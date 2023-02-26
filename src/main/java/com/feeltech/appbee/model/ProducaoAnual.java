@@ -37,4 +37,5 @@ public class ProducaoAnual implements Serializable {
     @JoinColumn(name = "colmeia_id")
     private Colmeia colmeia;
 
+
 }
